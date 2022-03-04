@@ -10,4 +10,4 @@ env:
     - SECRET_KEY='Test'
 
 script:
-    - python mange.py test
+    - python manage.py test
