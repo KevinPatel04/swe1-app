@@ -2,12 +2,22 @@ language: python
 
 python:
     - "3.8"
-
-services:
-    - pip install -r requirements.txt
-
 env:
     - SECRET_KEY='Test'
 
+install:
+  - pip install -r requirements.txt
+  - pip install black
+  - pip install flake8
+
+before_script:
+  - python manage.py migrate
+
 script:
-    - python manage.py test
+  - python manage.py
+  - black . --check
+  - flake8 --max-line-length=92
+  - coverage run --source='.' manage.py test
+
+after_success:
+  - coveralls
